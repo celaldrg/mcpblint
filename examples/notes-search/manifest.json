@@ -1,0 +1,67 @@
+{
+  "manifest_version": "0.2",
+  "name": "Notes Search",
+  "version": "1.2",
+  "description": "Semantic search over your markdown notes",
+  "author": {
+    "name": "Ada Example",
+    "email": "ada at example.com"
+  },
+  "icons": [
+    { "src": "icon.png", "size": "128" }
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.ts",
+    "mcp_config": {
+      "command": "node",
+      "args": ["dist/index.js", "--notes", "${user_config.notes_dir}", "--key", "${user_config.api_key}"],
+      "env": {
+        "OPENAI_API_KEY": "sk-proj-EXAMPLEdoNotUse0000aaaabbbbccccdddd",
+        "NOTES_GLOB": "${user_config.notes_dir}/**/*.md",
+        "EMBED_MODEL": "${user_config.model}",
+        "CACHE_DIR": "/Users/ada/.cache/notes-search"
+      },
+      "platform_overrides": {
+        "windows": { "command": "node.exe" }
+      }
+    }
+  },
+  "tools": [
+    { "name": "search notes", "description": "Find notes similar to a query" },
+    { "name": "read_note" }
+  ],
+  "prompts": [
+    {
+      "name": "summarize",
+      "arguments": ["topic"],
+      "text": "Summarize everything my notes say about ${arguments.topc}"
+    }
+  ],
+  "compatibility": {
+    "platforms": ["macos", "win32", "linux"],
+    "runtimes": { "node": ">=18" }
+  },
+  "user_config": {
+    "notes_dir": {
+      "type": "directory",
+      "title": "Notes folders",
+      "description": "Folders with your .md notes",
+      "multiple": true,
+      "required": true
+    },
+    "api_key": {
+      "type": "string",
+      "title": "API key",
+      "description": "Key for the embeddings API"
+    },
+    "max_results": {
+      "type": "number",
+      "title": "Max results",
+      "description": "How many notes to return",
+      "default": 50,
+      "min": 1,
+      "max": 20
+    }
+  }
+}

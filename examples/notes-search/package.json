@@ -1,0 +1,10 @@
+{
+  "name": "notes-search",
+  "version": "1.2.0",
+  "private": true,
+  "main": "dist/index.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "gray-matter": "^4.0.3"
+  }
+}

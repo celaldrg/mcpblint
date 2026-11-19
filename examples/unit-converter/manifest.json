@@ -1,0 +1,47 @@
+{
+  "manifest_version": "0.3",
+  "name": "unit-converter",
+  "display_name": "Unit Converter",
+  "version": "1.0.0",
+  "description": "Convert lengths, weights and temperatures without leaving the chat",
+  "author": {
+    "name": "Celalettin Durğaç",
+    "url": "https://github.com/celaldrg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/celaldrg/mcpblint"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "UNITS_PRECISION": "${user_config.precision}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "convert", "description": "Convert a value between two units, for example 5 mi to km" },
+    { "name": "list_units", "description": "List the units the converter understands" }
+  ],
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": { "node": ">=18.0.0" }
+  },
+  "user_config": {
+    "precision": {
+      "type": "number",
+      "title": "Decimal places",
+      "description": "How many decimal places to show in results",
+      "default": 3,
+      "min": 0,
+      "max": 10
+    }
+  }
+}
